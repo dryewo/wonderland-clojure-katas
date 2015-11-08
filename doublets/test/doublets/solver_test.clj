@@ -19,3 +19,14 @@
   (testing "with no word links found"
     (is (= []
            (doublets "ye" "freezer")))))
+
+(deftest can-is-step-1?
+  (are [res w1 w2] (= res (is-step-1? w1 w2))
+                   false "" ""
+                   true "aaa" "aba"
+                   false "aaa" "ccc"
+                   false "aaa" "aaa"
+                   false "aaa" "aaab"))
+
+(deftest can-filter-step-1-words
+  (is (= ["aab" "aba"] (select-step-1-words ["aab" "ccc" "aba"] "aaa"))))
