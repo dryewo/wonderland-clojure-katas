@@ -11,6 +11,12 @@
             (filter false?)
             count)))
 
+(defn prepare-dict [word-list start-word end-word]
+  (-> (filter #(= (count start-word) (count %)) word-list)
+      (set)
+      (disj start-word)
+      (conj end-word)))
+
 (defn select-step-1-words [dict word]
   (filter #(is-step-1? word %) dict))
 
@@ -28,8 +34,5 @@
         len2 (count word2)]
     (if (not= len1 len2)
       []
-      (let [dict (-> (filter #(= len1 (count %)) words)
-                     (set)
-                     (disj word1)
-                     (conj word2))]
+      (let [dict (prepare-dict words word1 word2)]
         (vec (doublets-impl [word1] dict word2))))))

@@ -28,5 +28,9 @@
                    false "aaa" "aaa"
                    false "aaa" "aaab"))
 
+(deftest can-prepare-dict
+  (is (= #{"aab" "aba" "bbb"}
+         (prepare-dict ["aaa" "aab" "aba" "aaba" "aa" "aab" "bbb"] "aaa" "bbb"))))
+
 (deftest can-filter-step-1-words
   (is (= ["aab" "aba"] (select-step-1-words ["aab" "ccc" "aba"] "aaa"))))
